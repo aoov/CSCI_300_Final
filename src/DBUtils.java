@@ -9,20 +9,15 @@ public class DBUtils {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/turner_construction", "root", "Password1!");
             Statement statement = con.createStatement();
-            ArrayList<String> strings = new ArrayList<>();
-            strings.add("create database if not exists turner_construction");
-            strings.add("use turner_construction");
-            strings.add("create table if not exists suppliers(supplier_no int unique key, supplier_address char(30), supplier_name char(20))");
-            strings.add("create table if not exists contracts(contract_no int unique key, supplier_no_fk int, foreign key (supplier_no_fk) references suppliers(supplier_no), date_of_contract date)");
-            strings.add("create table if not exists projects(project_no int unique key, project_data char(20)");
-            strings.add("create table if not exists orders(order_no int unique key, contract_no_fk int, foreign key (contract_no_fk) references contracts(contract_no), project_no_fk int, foreign key (project_no_fk) references projects(project_no),date_required date, date_completed date)");
-            strings.add("create table if not exists items(item_no int unique key, item_description char(20))");
-            strings.add("create table if not exists to_supply(item_no_fk int, foreign key (item_no_fk) references items(item_no), contract_no_fk int, foreign key (contract_no_fk) references contracts(contract_no), contract_price decimal(8,2), contract_amount int, primary key(item_no_fk, contract_no_fk))");
-            strings.add("create table if not exists made_of(item_no_fk int, foreign key (item_no_fk) references items(item_no), order_no_fk int, foreign key (order_no_fk) references orders(order_no), order_qty int)");
-
-            for(String s : strings){
-                statement.executeUpdate(s);
-            }
+            statement.executeUpdate("create database if not exists turner_construction");
+            statement.executeUpdate("use turner_construction");
+            statement.executeUpdate("create table if not exists suppliers(supplier_no int unique key, supplier_address char(30), supplier_name char(20))");
+            statement.executeUpdate("create table if not exists contracts(contract_no int unique key, supplier_no_fk int, foreign key (supplier_no_fk) references suppliers(supplier_no), date_of_contract date)");
+            statement.executeUpdate("create table if not exists projects(project_no int unique key, project_data char(20))");
+            statement.executeUpdate("create table if not exists orders(order_no int unique key, contract_no_fk int, foreign key (contract_no_fk) references contracts(contract_no), project_no_fk int, foreign key (project_no_fk) references projects(project_no),date_required date, date_completed date)");
+            statement.executeUpdate("create table if not exists items(item_no int unique key, item_description char(20))");
+            statement.executeUpdate("create table if not exists to_supply(item_no_fk int, foreign key (item_no_fk) references items(item_no), contract_no_fk int, foreign key (contract_no_fk) references contracts(contract_no), contract_price decimal(8,2), contract_amount int, primary key(item_no_fk, contract_no_fk))");
+            statement.executeUpdate("create table if not exists made_of(item_no_fk int, foreign key (item_no_fk) references items(item_no), order_no_fk int, foreign key (order_no_fk) references orders(order_no), order_qty int)");
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -249,6 +244,7 @@ public class DBUtils {
             System.out.println("Item addition failed");
             return false;
         }
+        return false;
     }
 
     public static boolean addOrder(int ORDER_NO, int CONTRACT_NO, int PROJECT_NO, String DATE_REQUIRED) {
