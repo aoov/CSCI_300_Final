@@ -27,6 +27,7 @@ public class main {
             System.out.println("11: Find quantity available in contract");
             System.out.println("12: Add items to contract");
             System.out.println("13: Add items to order");
+            System.out.println("14: Summarize Contracts");
             choice = scanner.nextLine();
             switch (choice) {
                 case "1": {
@@ -67,6 +68,9 @@ public class main {
                 }
                 case "13": {
                     addItemsToOrder(scanner);
+                }
+                case "14": {
+                    DBUtils.contractSummary();
                 }
             }
         }
