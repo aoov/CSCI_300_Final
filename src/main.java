@@ -30,47 +30,61 @@ public class main {
             System.out.println("14: Summarize Contracts");
             choice = scanner.nextLine();
             switch (choice) {
-                case "1": {
+                case "1" -> {
                     addSupplier(scanner);
+                    break;
                 }
-                case "2": {
+                case "2" -> {
                     addItem(scanner);
+                    break;
                 }
-                case "3": {
+                case "3" -> {
                     addProject(scanner);
+                    break;
                 }
-                case "4": {
+                case "4" -> {
                     addContract(scanner);
+                    break;
                 }
-                case "5": {
+                case "5" -> {
                     addOrder(scanner);
+                    break;
                 }
-                case "6": {
+                case "6" -> {
                     inspectOrders(scanner);
+                    break;
                 }
-                case "7": {
+                case "7" -> {
                     findPriceInOrder(scanner);
+                    break;
                 }
-                case "8": {
+                case "8" -> {
                     findOrdersContaining(scanner);
+                    break;
                 }
-                case "9": {
+                case "9" -> {
                     findPriceInContract(scanner);
+                    break;
                 }
-                case "10": {
+                case "10" -> {
                     findContractWithSupplier(scanner);
+                    break;
                 }
-                case "11": {
+                case "11" -> {
                     findQuantityAvailable(scanner);
+                    break;
                 }
-                case "12": {
+                case "12" -> {
                     addItemsToContract(scanner);
+                    break;
                 }
-                case "13": {
+                case "13" -> {
                     addItemsToOrder(scanner);
+                    break;
                 }
-                case "14": {
+                case "14" -> {
                     DBUtils.contractSummary();
+                    break;
                 }
             }
         }
@@ -93,7 +107,7 @@ public class main {
             int orderQuantity = scanner.nextInt();
             scanner.nextLine();
             DBUtils.madeOf(itemNo, orderNo, orderQuantity);
-            System.out.println("Enter \"exit\" to exit, continue to continue adding items");
+            System.out.println("Enter \"stop\" to stop, continue to continue adding items");
             choice = scanner.nextLine();
         }
     }
@@ -196,7 +210,7 @@ public class main {
                 int orderQuantity = scanner.nextInt();
                 scanner.nextLine();
                 DBUtils.madeOf(itemNo, orderNo, orderQuantity);
-                System.out.println("Enter \"exit\" to exit, continue to continue adding items");
+                System.out.println("Enter \"stop\" to stop, continue to continue adding items");
                 choice = scanner.nextLine();
             }
         }
@@ -262,7 +276,7 @@ public class main {
         int projNo = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Enter Project Data");
-        String projData = scanner.next();
+        String projData = scanner.nextLine();
         DBUtils.addProject(projNo, projData);
     }
 

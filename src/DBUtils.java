@@ -83,7 +83,7 @@ public class DBUtils {
 
     public static void CreateDB() {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/turner_construction", "root", "Password1!");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "Password1!");
             Statement statement = con.createStatement();
             statement.executeUpdate("create database if not exists turner_construction");
             statement.executeUpdate("use turner_construction");
@@ -94,7 +94,6 @@ public class DBUtils {
             statement.executeUpdate("create table if not exists items(item_no int unique key, item_description char(20))");
             statement.executeUpdate("create table if not exists to_supply(item_no_fk int, foreign key (item_no_fk) references items(item_no), contract_no_fk int, foreign key (contract_no_fk) references contracts(contract_no), contract_price decimal(8,2), contract_amount int, primary key(item_no_fk, contract_no_fk))");
             statement.executeUpdate("create table if not exists made_of(item_no_fk int, foreign key (item_no_fk) references items(item_no), order_no_fk int, foreign key (order_no_fk) references orders(order_no), order_qty int)");
-            con.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -370,7 +369,8 @@ public class DBUtils {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/turner_construction", "root", "Password1!");
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery("select count(*) from orders where contract_no_fk = " + CONTRACT_NO);
-            if (rs.isBeforeFirst()) {
+            if (!rs.isBeforeFirst()) {
+                rs.next();
                 if (rs.getInt(1) == 6000) {
                     System.out.println("Maximum number of orders for this contract reached: 6000");
                     con.close();
